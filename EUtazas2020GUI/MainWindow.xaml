@@ -7,11 +7,12 @@
         mc:Ignorable="d"
         Title="eUtazás 2020 GUI - Új felszállás" Height="450" Width="800">
     <Grid>
-        <Label x:Name="asd" Content="Megálló sorszáma:" HorizontalAlignment="Left" Margin="55,51,0,0" VerticalAlignment="Top"/>
+        <Label Content="Megálló sorszáma:" HorizontalAlignment="Left" Margin="55,51,0,0" VerticalAlignment="Top"/>
         <Label Content="Felszállás dátuma:" HorizontalAlignment="Left" Margin="55,93,0,0" VerticalAlignment="Top"/>
         <Label Content="Felszállás időpontja [óó:pp]" HorizontalAlignment="Left" Margin="55,143,0,0" VerticalAlignment="Top"/>
         <Label Content="Kártya azonosítója:" HorizontalAlignment="Left" Margin="55,191,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="busStopCombobox" HorizontalAlignment="Left" Margin="231,55,0,0" VerticalAlignment="Top" Width="120" SelectedValue="Válasszon megállót!"/>
+        <ComboBox x:Name="busStopCombobox" HorizontalAlignment="Left" Margin="231,55,0,0" VerticalAlignment="Top" Width="142"/>
+        <GroupBox Header="Bérlet további adatai" Margin="34,238,427,46" BorderBrush="#FF3C4246"/>
 
     </Grid>
 </Window>

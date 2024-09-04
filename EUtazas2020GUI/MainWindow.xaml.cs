@@ -31,10 +31,15 @@ namespace EUtazas2020GUI
                 passengers.Add(new(item));
             }
 
-            Console.WriteLine(passengers[0]);
-            
-            //megalloCombobox.
-            asd.Content = passengers[0].ToString();
+            busStopCombobox.Items.Add("Válasszon megállót!");
+
+            busStopCombobox.SelectedIndex= 0;
+
+            foreach (var item in passengers.Select(e => e.BusStopNumber).Distinct())
+            {
+                busStopCombobox.Items.Add(item);
+            }
+
         }
 
        
@@ -49,11 +54,11 @@ namespace EUtazas2020GUI
         public string CardValidityPeriod { get; set; }
         public Utas(string sor) {
             var x = sor.Split(" ");
-            BusStopNumber = Convert.ToInt16(x[0]);
+            BusStopNumber = Convert.ToInt32(x[0]);
             TakeOffDate = x[1];
-            CardId = Convert.ToInt16(x[0]);
-            TicketType = x[0];
-            CardValidityPeriod = x[0];
+            CardId = Convert.ToInt32(x[2]);
+            TicketType = x[3];
+            CardValidityPeriod = x[4];
         }
         public override string ToString()
         {
