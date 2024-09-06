@@ -21,6 +21,8 @@ namespace EUtazas2020GUI
         public MainWindow()
         {
             InitializeComponent();
+            takeOffDate_DatePicker.SelectedDate = DateTime.Now;
+            ticketValidityDate_Datepicker.SelectedDate = DateTime.Now;
 
             string fileSrc = @"..\..\..\src\utasadat.txt";
 
@@ -42,7 +44,14 @@ namespace EUtazas2020GUI
 
         }
 
-       
+        private void cardIDTextbox_TextChanged(object sender, EventArgs e)
+        {
+            if (cardIDTextbox.Text != null) cardIdLabel.Content = $"{cardIDTextbox.Text.Length} db";
+
+            cardIdLabel.Foreground = cardIDTextbox.Text.Length > 7 ? Brushes.Red : SystemColors.WindowTextBrush;
+        }
+
+
     }
 
     class Utas

@@ -7,12 +7,34 @@
         mc:Ignorable="d"
         Title="eUtazás 2020 GUI - Új felszállás" Height="450" Width="800">
     <Grid>
-        <Label Content="Megálló sorszáma:" HorizontalAlignment="Left" Margin="55,51,0,0" VerticalAlignment="Top"/>
-        <Label Content="Felszállás dátuma:" HorizontalAlignment="Left" Margin="55,93,0,0" VerticalAlignment="Top"/>
-        <Label Content="Felszállás időpontja [óó:pp]" HorizontalAlignment="Left" Margin="55,143,0,0" VerticalAlignment="Top"/>
-        <Label Content="Kártya azonosítója:" HorizontalAlignment="Left" Margin="55,191,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="busStopCombobox" HorizontalAlignment="Left" Margin="231,55,0,0" VerticalAlignment="Top" Width="142"/>
-        <GroupBox Header="Bérlet további adatai" Margin="34,238,427,46" BorderBrush="#FF3C4246"/>
+        <Label Content="Megálló sorszáma:" HorizontalAlignment="Left" Margin="56,26,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="busStopCombobox" HorizontalAlignment="Left" Margin="231,28,0,0" VerticalAlignment="Top" Width="142"/>
+        <Label Content="Felszállás dátuma:" HorizontalAlignment="Left" Margin="56,57,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="takeOffDate_DatePicker" HorizontalAlignment="Left" Margin="231,59,0,0" VerticalAlignment="Top" Width="142"/>
+        <Label Content="Felszállás időpontja [óó:pp]" HorizontalAlignment="Left" Margin="55,88,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="takeOffTimeTextbox" HorizontalAlignment="Left" Margin="231,93,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="21" Width="71"/>
+        <Label Content="Kártya azonosítója:" HorizontalAlignment="Left" Margin="55,119,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="cardIDTextbox" TextChanged="cardIDTextbox_TextChanged" HorizontalAlignment="Left" Margin="231,124,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="21" Width="142"/>
+        <Label x:Name="cardIdLabel" Content="0 db" HorizontalAlignment="Center" Margin="0,119,0,0" VerticalAlignment="Top" FontSize="14"/>
+
+        <GroupBox Header="Bérlet további adatai" Margin="34,161,427,105" BorderBrush="#FF3C4246">
+            <StackPanel Orientation="Vertical" Margin="5">
+                <Label Content="Bérlet típusa:" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                <ComboBox x:Name="ticketTypeCombobox" HorizontalAlignment="Left" Width="142"/>
+                <Label Content="Bérlet érvényességi ideje:" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                <DatePicker x:Name="ticketValidityDate_Datepicker" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Bérlet vagy jegy" Margin="444,197,238,141" BorderBrush="#FF3C4246">
+            <StackPanel Orientation="Vertical" Margin="5">
+                <RadioButton Content="Bérlet" Margin="0,5,0,0"/>
+                <RadioButton Content="Jegy"/>
+            </StackPanel>
+        </GroupBox>
+        
+        <Button Content="Adatok ellenőrzése és rögzítése" HorizontalAlignment="Left" Margin="266,349,0,0" VerticalAlignment="Top" Height="31" Width="244" FontSize="15"/>
+
 
     </Grid>
 </Window>
