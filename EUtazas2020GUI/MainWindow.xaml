@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EUtazas2020GUI"
         mc:Ignorable="d"
-        Title="eUtazás 2020 GUI - Új felszállás" Height="450" Width="800">
+        Title="eUtazás 2020 GUI - Új felszállás" Height="450" Width="800"
+        ResizeMode="NoResize">
     <Grid>
         <Label Content="Megálló sorszáma:" HorizontalAlignment="Left" Margin="56,26,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="busStopNumberCombobox" HorizontalAlignment="Left" Margin="231,28,0,0" VerticalAlignment="Top" Width="142"/>
@@ -29,8 +30,8 @@
         <GroupBox x:Name="ticketGroupbox" Visibility="Collapsed" Header="Jegy további adatai" Margin="34,161,427,105" BorderBrush="#FF3C4246">
             <StackPanel Orientation="Vertical" Margin="5">
                 <Label Content="Felhasználható jegy:" HorizontalAlignment="Left" Margin="5,0,0,0"/>
-                <Slider x:Name="usableTicketCountSlider" Minimum="1" Maximum="10" ValueChanged="usableTicketCountSlider_ValueChanged" HorizontalAlignment="Stretch" Margin="5,0,5,0"/>
-                <Label x:Name="usableTicketCountLabel" Content="0 db" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                <Slider x:Name="usableTicketCountSlider" Minimum="1" Maximum="10" Value="0" IsSnapToTickEnabled="True" ValueChanged="usableTicketCountSlider_ValueChanged" HorizontalAlignment="Stretch" Margin="5,0,5,0"/>
+                <Label x:Name="usableTicketCountLabel" Content="1 db" HorizontalAlignment="Left" Margin="5,0,0,0"/>
             </StackPanel>
         </GroupBox>
 
@@ -40,10 +41,9 @@
                 <RadioButton x:Name="ticketRadioButton" Content="Jegy" Checked="RadioButton_Checked"/>
             </StackPanel>
         </GroupBox>
-        
-        
-        <Button x:Name="dataRecordButton" Content="Adatok ellenőrzése és rögzítése" HorizontalAlignment="Left" Margin="266,349,0,0" VerticalAlignment="Top" Height="31" Width="244" FontSize="15" Click="dataRecordButton_Click"/>
 
+
+        <Button x:Name="dataRecordButton" Content="Adatok ellenőrzése és rögzítése" HorizontalAlignment="Left" Margin="266,349,0,0" VerticalAlignment="Top" Height="31" Width="244" FontSize="15" Click="dataRecordButton_Click"/>
 
     </Grid>
 </Window>

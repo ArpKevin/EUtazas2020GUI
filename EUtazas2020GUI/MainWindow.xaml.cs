@@ -24,11 +24,7 @@ namespace EUtazas2020GUI
         public MainWindow()
         {
             InitializeComponent();
-            //takeOffDate_DatePicker.SelectedDate = DateTime.Now;
-            //ticketValidityDate_Datepicker.SelectedDate = DateTime.Now;
             leaseRadioButton.IsChecked = true;
-
-            
 
             var passengers = new List<Utas>();
 
@@ -37,7 +33,7 @@ namespace EUtazas2020GUI
                 passengers.Add(new(item));
             }
 
-            busStopNumberCombobox.Items.Add("Válasszon megállót!"); busStopNumberCombobox.SelectedIndex= 0;
+            busStopNumberCombobox.Items.Add("Válasszon megállót!"); busStopNumberCombobox.SelectedIndex = 0;
 
             foreach (var item in passengers.Select(e => e.BusStopNumber).Distinct())
             {
@@ -62,7 +58,7 @@ namespace EUtazas2020GUI
 
         private void usableTicketCountSlider_ValueChanged(object sender, EventArgs e)
         {
-            //to be fixed 
+            if(usableTicketCountLabel != null) usableTicketCountLabel.Content = $"{usableTicketCountSlider.Value} db";
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -76,63 +72,79 @@ namespace EUtazas2020GUI
         private void dataRecordButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedBusStopNumber = busStopNumberCombobox.SelectedItem;
-            var takeOffTime = takeOffTimeTextbox.Text;
             var cardId = cardIDTextbox.Text;
             var selectedLeaseType = ticketTypeCombobox.SelectedItem;
 
-            var busStopNumberPlaceholder = busStopNumberCombobox.Items[0];
-            if (selectedBusStopNumber == null || selectedBusStopNumber == busStopNumberPlaceholder)
+
+
+            var busstopnumberplaceholder = busStopNumberCombobox.Items[0];
+            if (selectedBusStopNumber == null || selectedBusStopNumber == busstopnumberplaceholder)
             {
-                MessageBox.Show("Nem választott megállót!", "Hiba!");
+                MessageBox.Show("nem választott megállót!", "Hiba!");
                 return;
             }
-            if (takeOffDate_DatePicker.SelectedDate == null)
+            DateTime takeOffDate;
+            if (!DateTime.TryParse(takeOffDate_DatePicker.Text, out takeOffDate))
             {
-                MessageBox.Show("Nem adott meg felszállási dátumot!", "Hiba!");
+                MessageBox.Show("Nem adott meg felszállási dátumot, vagy a dátum formátuma nem helyes!", "Hiba!");
                 return;
             }
-            if (!IsValidTimeFormat(takeOffTime))
+            TimeSpan takeOffTime;
+            if (!TimeSpan.TryParse(takeOffTimeTextbox.Text, out takeOffTime))
             {
-                MessageBox.Show("Időpont formátuma nem helyes! Használja a 'hh:mm' formátumot.", "Hiba!");
+                MessageBox.Show("Az felszállás időpontja nem helyes! Használja a 'hh:mm' formátumot.", "Hiba!");
                 return;
             }
             if (cardId.Length != 7 || !int.TryParse(cardId, out _))
             {
-                MessageBox.Show("Egy 7 számjegyet tartalmazó kártya azonosítót adjon meg.", "Hiba!");
+                MessageBox.Show("egy 7 számjegyet tartalmazó kártya azonosítót adjon meg.", "Hiba!");
                 return;
             }
+
+            var tickettypeplaceholder = ticketTypeCombobox.Items[0];
+
+            if (selectedLeaseType == null || selectedLeaseType == tickettypeplaceholder)
+            {
+                MessageBox.Show("nem választott bérletet!", "Hiba!");
+                return;
+            }
+
             if (leaseRadioButton.IsChecked == true)
             {
-                var ticketTypePlaceholder = ticketTypeCombobox.Items[0];
-
-                if (selectedLeaseType == null || selectedLeaseType == ticketTypePlaceholder)
+                if (ticketValidityDate_Datepicker.SelectedDate == null)
                 {
-                    MessageBox.Show("Nem választott bérletet!", "Hiba!");
+                    MessageBox.Show("nem adott meg bérlet dátumot!", "Hiba!");
                     return;
                 }
             }
-            if (ticketValidityDate_Datepicker.SelectedDate == null)
+            
+
+            DateTime combinedDateTime = takeOffDate.Date + takeOffTime;
+
+            string combinedDateTimeFormat = combinedDateTime.ToString("yyyyMMdd-HHmm");
+            string ticketValidityDateFormat = string.Empty;
+            if (ticketValidityDate_Datepicker.SelectedDate != null) ticketValidityDateFormat = ticketValidityDate_Datepicker.SelectedDate.Value.ToString("yyyyMMdd");
+
+            string txtAppendLine = string.Empty;
+            if (leaseRadioButton.IsChecked == true)
             {
-                MessageBox.Show("Nem adott meg bérlet dátumot!", "Hiba!");
-                return;
+                txtAppendLine = $"{selectedBusStopNumber} {combinedDateTimeFormat} {cardId} {selectedLeaseType} {ticketValidityDateFormat}";
+            }
+            else
+            {
+                txtAppendLine = $"{selectedBusStopNumber} {combinedDateTimeFormat} {cardId} {selectedLeaseType} {usableTicketCountSlider.Value}";
             }
 
-            using StreamWriter sw = new(fileSrc);
+            using StreamWriter sw = new StreamWriter(fileSrc, true);
 
-            //----------------------
-            //sw.WriteLine($"{selectedBusStopNumber} ");
-        }
-
-        private bool IsValidTimeFormat(string timeText)
-        {
-            // Regular expression for 'hh:mm' format
-            var regex = new Regex(@"^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$");
-
-            if (!regex.IsMatch(timeText))
-                return false;
-
-            // Additional checks can be added if necessary
-            return true;
+            sw.WriteLine(txtAppendLine);
+            busStopNumberCombobox.SelectedIndex = 0;
+            takeOffDate_DatePicker.SelectedDate = null;
+            takeOffTimeTextbox.Clear();
+            cardIDTextbox.Clear();
+            ticketTypeCombobox.SelectedIndex = 0;
+            ticketValidityDate_Datepicker.SelectedDate = null;
+            usableTicketCountSlider.Value = 0;
         }
     }
 
