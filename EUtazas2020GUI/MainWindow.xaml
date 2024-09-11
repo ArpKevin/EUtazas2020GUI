@@ -44,6 +44,7 @@
 
 
         <Button x:Name="dataRecordButton" Content="Adatok ellenőrzése és rögzítése" HorizontalAlignment="Left" Margin="266,349,0,0" VerticalAlignment="Top" Height="31" Width="244" FontSize="15" Click="dataRecordButton_Click"/>
+        <Button x:Name="newwindowButton" Content="Új ablak" HorizontalAlignment="Left" Margin="590,364,0,0" VerticalAlignment="Top" Click="newwindowButton_Click"/>
 
     </Grid>
 </Window>

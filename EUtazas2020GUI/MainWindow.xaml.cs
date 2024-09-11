@@ -20,13 +20,15 @@ namespace EUtazas2020GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<Utas> passengers { get; set; }
+
         private const string fileSrc = @"..\..\..\src\utasadat.txt";
         public MainWindow()
         {
             InitializeComponent();
             leaseRadioButton.IsChecked = true;
 
-            var passengers = new List<Utas>();
+            passengers = new List<Utas>();
 
             foreach (var item in File.ReadAllLines(fileSrc))
             {
@@ -80,7 +82,7 @@ namespace EUtazas2020GUI
             var busstopnumberplaceholder = busStopNumberCombobox.Items[0];
             if (selectedBusStopNumber == null || selectedBusStopNumber == busstopnumberplaceholder)
             {
-                MessageBox.Show("nem választott megállót!", "Hiba!");
+                MessageBox.Show("Nem választott megállót!", "Hiba!");
                 return;
             }
             DateTime takeOffDate;
@@ -97,7 +99,7 @@ namespace EUtazas2020GUI
             }
             if (cardId.Length != 7 || !int.TryParse(cardId, out _))
             {
-                MessageBox.Show("egy 7 számjegyet tartalmazó kártya azonosítót adjon meg.", "Hiba!");
+                MessageBox.Show("Egy 7 számjegyet tartalmazó kártya azonosítót adjon meg.", "Hiba!");
                 return;
             }
 
@@ -105,7 +107,7 @@ namespace EUtazas2020GUI
 
             if (selectedLeaseType == null || selectedLeaseType == tickettypeplaceholder)
             {
-                MessageBox.Show("nem választott bérletet!", "Hiba!");
+                MessageBox.Show("Nem választott bérletet!", "Hiba!");
                 return;
             }
 
@@ -113,7 +115,7 @@ namespace EUtazas2020GUI
             {
                 if (ticketValidityDate_Datepicker.SelectedDate == null)
                 {
-                    MessageBox.Show("nem adott meg bérlet dátumot!", "Hiba!");
+                    MessageBox.Show("Nem adott meg bérlet dátumot!", "Hiba!");
                     return;
                 }
             }
@@ -138,6 +140,9 @@ namespace EUtazas2020GUI
             using StreamWriter sw = new StreamWriter(fileSrc, true);
 
             sw.WriteLine(txtAppendLine);
+
+            MessageBox.Show("A felszállás tárolása sikeres volt!", "EUtazás 2020");
+
             busStopNumberCombobox.SelectedIndex = 0;
             takeOffDate_DatePicker.SelectedDate = null;
             takeOffTimeTextbox.Clear();
@@ -146,9 +151,16 @@ namespace EUtazas2020GUI
             ticketValidityDate_Datepicker.SelectedDate = null;
             usableTicketCountSlider.Value = 0;
         }
+
+        private void newwindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window2 subWindow = new Window2(passengers);
+            subWindow.Show();
+            this.Hide();
+        }
     }
 
-    class Utas
+    public class Utas
     {
         public int BusStopNumber { get; set; }
         public string TakeOffDate { get; set; }
