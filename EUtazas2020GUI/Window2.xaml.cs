@@ -27,11 +27,13 @@ namespace EUtazas2020GUI
             InitializeComponent();
 
             this.passengersConsole = passengers;
-            lbl1.Content = $"3. feladat\nA buszra {passengersConsole.Count} utas akart felszállni.";
 
-            
+            lbl1.Content = $"3. feladat\nA buszra {passengersConsole.Count()} utas akart felszállni.";
+            lbl2.Content = $"4. feladat\nA buszra {passengersConsole.Count(p => p.CardValidityPeriod == "0" ||
+                (DateTime.TryParseExact(p.CardValidityPeriod, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out var cardValidityDate) &&
+                 DateTime.TryParseExact(p.TakeOffDate, "yyyyMMdd-HHmm", null, System.Globalization.DateTimeStyles.None, out var takeOffDate) &&
+                 takeOffDate > cardValidityDate && takeOffDate.Date != cardValidityDate.Date))} utas nem szállhatott fel.";
 
-            lbl2.Content = $"4. feladat\nA buszra {passengersConsole.Count(p => int.Parse(p.CardValidityPeriod) == 0)} utas nem szállhatott fel.";
 
             var f5 = passengersConsole.GroupBy(p => p.BusStopNumber).MaxBy(g => g.Count());
 
