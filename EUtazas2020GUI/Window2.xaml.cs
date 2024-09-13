@@ -52,14 +52,15 @@ namespace EUtazas2020GUI
                  CardValidityPeriod = DateTime.ParseExact(p.CardValidityPeriod, "yyyyMMdd", null)
              }).ToList();
 
-            using StreamWriter sw = new(@"..\..\..\src\figyelmeztetes.txt", true);
+            using StreamWriter sw = new(@"..\..\..\src\figyelmeztetes.txt", false);
 
             foreach (var item in f7Berlet)
             {
-                var expiryTime = (item.CardValidityPeriod - item.TakeOffDate).TotalDays;
-                if (expiryTime <= 3)
+                var expiryTime = (item.CardValidityPeriod - item.TakeOffDate);
+
+                if (expiryTime.TotalDays <= 3)
                 {
-                    sw.WriteLine($"{item.CardID} {expiryTime.ToString("yyyy-MM-dd")}");
+                    sw.WriteLine($"{item.CardID} {item.CardValidityPeriod.ToString("yyyy-MM-dd")}");
                 }
             }
         }
