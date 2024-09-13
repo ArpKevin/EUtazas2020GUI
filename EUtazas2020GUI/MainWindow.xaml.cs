@@ -105,14 +105,13 @@ namespace EUtazas2020GUI
 
             var tickettypeplaceholder = ticketTypeCombobox.Items[0];
 
-            if (selectedLeaseType == null || selectedLeaseType == tickettypeplaceholder)
-            {
-                MessageBox.Show("Nem választott bérletet!", "Hiba!");
-                return;
-            }
-
             if (leaseRadioButton.IsChecked == true)
             {
+                if (selectedLeaseType == null || selectedLeaseType == tickettypeplaceholder)
+                {
+                    MessageBox.Show("Nem választott bérletet!", "Hiba!");
+                    return;
+                }
                 if (ticketValidityDate_Datepicker.SelectedDate == null)
                 {
                     MessageBox.Show("Nem adott meg bérlet dátumot!", "Hiba!");
@@ -134,7 +133,7 @@ namespace EUtazas2020GUI
             }
             else
             {
-                txtAppendLine = $"{selectedBusStopNumber} {combinedDateTimeFormat} {cardId} {selectedLeaseType} {usableTicketCountSlider.Value}";
+                txtAppendLine = $"{selectedBusStopNumber} {combinedDateTimeFormat} {cardId} JGY {usableTicketCountSlider.Value}";
             }
 
             using StreamWriter sw = new StreamWriter(fileSrc, true);

@@ -30,8 +30,8 @@
         <GroupBox x:Name="ticketGroupbox" Visibility="Collapsed" Header="Jegy további adatai" Margin="34,161,427,105" BorderBrush="#FF3C4246">
             <StackPanel Orientation="Vertical" Margin="5">
                 <Label Content="Felhasználható jegy:" HorizontalAlignment="Left" Margin="5,0,0,0"/>
-                <Slider x:Name="usableTicketCountSlider" Minimum="1" Maximum="10" Value="0" IsSnapToTickEnabled="True" ValueChanged="usableTicketCountSlider_ValueChanged" HorizontalAlignment="Stretch" Margin="5,0,5,0"/>
-                <Label x:Name="usableTicketCountLabel" Content="1 db" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                <Slider x:Name="usableTicketCountSlider" Minimum="0" Maximum="10" Value="0" IsSnapToTickEnabled="True" ValueChanged="usableTicketCountSlider_ValueChanged" HorizontalAlignment="Stretch" Margin="5,0,5,0"/>
+                <Label x:Name="usableTicketCountLabel" Content="0 db" HorizontalAlignment="Left" Margin="5,0,0,0"/>
             </StackPanel>
         </GroupBox>
 
