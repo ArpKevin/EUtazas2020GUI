@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -30,7 +31,37 @@ namespace EUtazas2020GUI
 
             
 
-            lbl2.Content = $"4.feladat\nA buszra {passengersConsole.Count(p => int.Parse(p.CardValidityPeriod) == 0)} utas nem szállhatott fel.";
+            lbl2.Content = $"4. feladat\nA buszra {passengersConsole.Count(p => int.Parse(p.CardValidityPeriod) == 0)} utas nem szállhatott fel.";
+
+            var f5 = passengersConsole.GroupBy(p => p.BusStopNumber).MaxBy(g => g.Count());
+
+            lbl3.Content = $"5. feladat\nA legtöbb utas ({f5.Key} fő) a {f5.Count()}. megállóban próbált felszállni.";
+
+            var f6Ervenyesek = passengersConsole.Where(p => int.Parse(p.CardValidityPeriod) != 0);
+            var f6Ingyenes = f6Ervenyesek.Count(p => p.TicketType == "NYP" || p.TicketType == "RVS" || p.TicketType == "GYK");
+            var f6Kedvezmenyes = f6Ervenyesek.Count(p => p.TicketType == "TAB" || p.TicketType == "NYB");
+
+            lbl4.Content = $"6. feladat\nIngyenesen utazók száma: {f6Ingyenes} fő\nA kedvezményesen utazók száma: {f6Kedvezmenyes} fő";
+
+            var f7Berlet = passengersConsole
+             .Where(p => DateTime.TryParseExact(p.CardValidityPeriod, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out _))
+             .Select(p => new
+             {
+                 CardID = p.CardId,
+                 TakeOffDate = DateTime.ParseExact(p.TakeOffDate, "yyyyMMdd-HHmm" ,null),
+                 CardValidityPeriod = DateTime.ParseExact(p.CardValidityPeriod, "yyyyMMdd", null)
+             }).ToList();
+
+            using StreamWriter sw = new(@"..\..\..\src\figyelmeztetes.txt", true);
+
+            foreach (var item in f7Berlet)
+            {
+                var expiryTime = (item.CardValidityPeriod - item.TakeOffDate).TotalDays;
+                if (expiryTime <= 3)
+                {
+                    sw.WriteLine($"{item.CardID} {expiryTime.ToString("yyyy-MM-dd")}");
+                }
+            }
         }
     }
 }
