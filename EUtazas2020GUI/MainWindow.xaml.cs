@@ -26,6 +26,7 @@ namespace EUtazas2020GUI
         public MainWindow()
         {
             InitializeComponent();
+            this.Closed += (s, e) => Application.Current.Shutdown();
             leaseRadioButton.IsChecked = true;
 
             passengers = new List<Utas>();

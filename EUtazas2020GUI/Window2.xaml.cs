@@ -21,11 +21,12 @@ namespace EUtazas2020GUI
     /// </summary>
     public partial class Window2 : Window
     {
+
         private List<Utas> passengersConsole;
         public Window2(List<Utas> passengers)
         {
             InitializeComponent();
-
+            this.Closed += (s, e) => Application.Current.Shutdown();
             this.passengersConsole = passengers;
 
             lbl1.Content = $"3. feladat\nA buszra {passengersConsole.Count()} utas akart felszállni.";
