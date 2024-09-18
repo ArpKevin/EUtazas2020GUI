@@ -39,7 +39,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <GroupBox x:Name="leaseGroupbox" Visibility="Collapsed" Header="Bérlet további adatai" BorderBrush="#FF3C4246" Grid.Column="0" Grid.Row="0" Margin="15,0,0,0">
+            <GroupBox x:Name="leaseGroupbox" Visibility="Visible" Header="Bérlet további adatai" BorderBrush="#FF3C4246" Grid.Column="0" Grid.Row="0" Margin="15,0,0,0">
                 <StackPanel>
                     <Label Content="Bérlet típusa:"/>
                     <ComboBox x:Name="ticketTypeCombobox" Margin="5,5,5,5"/>
@@ -48,7 +48,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox x:Name="ticketGroupbox" Visibility="Visible" Header="Jegy további adatai" BorderBrush="#FF3C4246" Grid.Column="0" Grid.Row="0" Margin="15,0,0,0">
+            <GroupBox x:Name="ticketGroupbox" Visibility="Collapsed" Header="Jegy további adatai" BorderBrush="#FF3C4246" Grid.Column="0" Grid.Row="0" Margin="15,0,0,0">
                 <StackPanel>
                     <Label Content="Felhasználható jegy:"/>
                     <Slider x:Name="usableTicketCountSlider" Minimum="0" Maximum="10" Value="0" IsSnapToTickEnabled="True" ValueChanged="usableTicketCountSlider_ValueChanged"/>
